@@ -1,0 +1,31 @@
+Tue Nov 22 20:00:21 CST 2022 : Apache Derby 网络服务器 - 10.14.2.0 - (1828579) 已启动并准备接受端口 1527 上的连接
+----------------------------------------------------------------
+Tue Nov 22 20:01:13 CST 2022:
+正在使用类加载程序 sun.misc.Launcher$AppClassLoader@1d44bcfa 引导数据库
+目录 E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\derby\databases\Q&A 中的 Derby 版本 The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579) 实例 a816c00e-0184-9f35-ebb0-ffffeafc6c43
+已从 file:/E:/Programming/_IDE/NetBeansDoc/PDC_Game_Millionaire/derby/db-derby-10.14.2.0-bin/lib/derby.jar 加载
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_301-b09
+user.dir=E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\derby\db-derby-10.14.2.0-bin
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\derby\databases
+数据库类加载程序已启动 - derby.database.classpath=''
+----------------------------------------------------------------
+Tue Nov 22 20:01:24 CST 2022:
+正在使用类加载程序 sun.misc.Launcher$AppClassLoader@1d44bcfa 关闭数据库目录 E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\derby\databases\Q&A 上的实例 a816c00e-0184-9f35-ebb0-ffffeafc6c43
+Tue Nov 22 20:01:24 CST 2022 Thread[DRDAConnThread_2,5,main] (DATABASE = Q&A), (DRDAID = {2}), 数据库“Q&A”已关闭。
+----------------------------------------------------------------
+Tue Nov 22 20:01:37 CST 2022:
+正在使用类加载程序 sun.misc.Launcher$AppClassLoader@1d44bcfa 引导数据库
+目录 E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\derby\databases\MillionaireDB 中的 Derby 版本 The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579) 实例 0ddd00a9-0184-9f35-ebb0-ffffeafc6c43
+已从 file:/E:/Programming/_IDE/NetBeansDoc/PDC_Game_Millionaire/derby/db-derby-10.14.2.0-bin/lib/derby.jar 加载
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_301-b09
+user.dir=E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\derby\db-derby-10.14.2.0-bin
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\derby\databases
+数据库类加载程序已启动 - derby.database.classpath=''
