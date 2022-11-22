@@ -29,3 +29,16 @@ os.arch=amd64
 os.version=10.0
 derby.system.home=E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\derby\databases
 数据库类加载程序已启动 - derby.database.classpath=''
+----------------------------------------------------------------
+Tue Nov 22 20:25:29 CST 2022:
+正在使用类加载程序 sun.misc.Launcher$AppClassLoader@1d44bcfa 引导数据库
+目录 E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\derby\databases\Millionaire 中的 Derby 版本 The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579) 实例 ab2c81d5-0184-9f35-ebb0-ffffeafc6c43
+已从 file:/E:/Programming/_IDE/NetBeansDoc/PDC_Game_Millionaire/derby/db-derby-10.14.2.0-bin/lib/derby.jar 加载
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_301-b09
+user.dir=E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\derby\db-derby-10.14.2.0-bin
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\derby\databases
+数据库类加载程序已启动 - derby.database.classpath=''
