@@ -2,14 +2,14 @@ package Database;
 
 public class QA extends Table {
 
-    public Column<Integer> id = new Column<>("ID");
-    public Column<String> question = new Column<>("QUESTION");
-    public Column<String> correct = new Column<>("CORRECTANSWER");
-    public Column<String> wrong1 = new Column<>("WRONGANSWER1");
-    public Column<String> wrong2 = new Column<>("WRONGANSWER2");
-    public Column<String> wrong3 = new Column<>("WRONGANSWER3");
-    public Column<String> wrong4 = new Column<>("WRONGANSWER4");
-    public Column<String> wrong5 = new Column<>("WRONGANSWER5");
+    public Column<Integer> id = new Column<>();
+    public Column<String> question = new Column<>();
+    public Column<String> correct = new Column<>();
+    public Column<String> wrong1 = new Column<>();
+    public Column<String> wrong2 = new Column<>();
+    public Column<String> wrong3 = new Column<>();
+    public Column<String> wrong4 = new Column<>();
+    public Column<String> wrong5 = new Column<>();
 
     public QA(int id,
             String question,
@@ -19,8 +19,8 @@ public class QA extends Table {
             String wrong3,
             String wrong4,
             String wrong5) {
-        super("QA");
         this.id.value = id;
+        this.question.value = question;
         this.correct.value = correct;
         this.wrong1.value = wrong1;
         this.wrong2.value = wrong2;

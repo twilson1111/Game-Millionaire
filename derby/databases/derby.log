@@ -1,8 +1,8 @@
-Tue Nov 22 20:00:21 CST 2022 : Apache Derby 网络服务器 - 10.14.2.0 - (1828579) 已启动并准备接受端口 1527 上的连接
+Wed Nov 23 16:36:59 CST 2022 : Apache Derby 网络服务器 - 10.14.2.0 - (1828579) 已启动并准备接受端口 1527 上的连接
 ----------------------------------------------------------------
-Tue Nov 22 20:01:13 CST 2022:
+Wed Nov 23 16:36:59 CST 2022:
 正在使用类加载程序 sun.misc.Launcher$AppClassLoader@1d44bcfa 引导数据库
-目录 E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\derby\databases\Q&A 中的 Derby 版本 The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579) 实例 a816c00e-0184-9f35-ebb0-ffffeafc6c43
+目录 E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\derby\databases\MillionaireDB 中的 Derby 版本 The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579) 实例 a816c00e-0184-a3a2-13f2-ffffeafc6c43
 已从 file:/E:/Programming/_IDE/NetBeansDoc/PDC_Game_Millionaire/derby/db-derby-10.14.2.0-bin/lib/derby.jar 加载
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_301-b09
@@ -12,97 +12,3 @@ os.arch=amd64
 os.version=10.0
 derby.system.home=E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\derby\databases
 数据库类加载程序已启动 - derby.database.classpath=''
-----------------------------------------------------------------
-Tue Nov 22 20:01:24 CST 2022:
-正在使用类加载程序 sun.misc.Launcher$AppClassLoader@1d44bcfa 关闭数据库目录 E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\derby\databases\Q&A 上的实例 a816c00e-0184-9f35-ebb0-ffffeafc6c43
-Tue Nov 22 20:01:24 CST 2022 Thread[DRDAConnThread_2,5,main] (DATABASE = Q&A), (DRDAID = {2}), 数据库“Q&A”已关闭。
-----------------------------------------------------------------
-Tue Nov 22 20:01:37 CST 2022:
-正在使用类加载程序 sun.misc.Launcher$AppClassLoader@1d44bcfa 引导数据库
-目录 E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\derby\databases\MillionaireDB 中的 Derby 版本 The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579) 实例 0ddd00a9-0184-9f35-ebb0-ffffeafc6c43
-已从 file:/E:/Programming/_IDE/NetBeansDoc/PDC_Game_Millionaire/derby/db-derby-10.14.2.0-bin/lib/derby.jar 加载
-java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_301-b09
-user.dir=E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\derby\db-derby-10.14.2.0-bin
-os.name=Windows 10
-os.arch=amd64
-os.version=10.0
-derby.system.home=E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\derby\databases
-数据库类加载程序已启动 - derby.database.classpath=''
-----------------------------------------------------------------
-Tue Nov 22 20:25:29 CST 2022:
-正在使用类加载程序 sun.misc.Launcher$AppClassLoader@1d44bcfa 引导数据库
-目录 E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\derby\databases\Millionaire 中的 Derby 版本 The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579) 实例 ab2c81d5-0184-9f35-ebb0-ffffeafc6c43
-已从 file:/E:/Programming/_IDE/NetBeansDoc/PDC_Game_Millionaire/derby/db-derby-10.14.2.0-bin/lib/derby.jar 加载
-java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_301-b09
-user.dir=E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\derby\db-derby-10.14.2.0-bin
-os.name=Windows 10
-os.arch=amd64
-os.version=10.0
-derby.system.home=E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\derby\databases
-数据库类加载程序已启动 - derby.database.classpath=''
-Tue Nov 22 21:22:58 CST 2022 Thread[DRDAConnThread_4,5,main] (XID = 323), (SESSIONID = 2), (DATABASE = Millionaire), (DRDAID = {7}), Cleanup action starting
-java.sql.SQLNonTransientConnectionException: Connection authentication failure occurred.  Reason: Invalid authentication..
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection.newSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection.checkUserCredentials(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection.<init>(Unknown Source)
-	at org.apache.derby.jdbc.InternalDriver$1.run(Unknown Source)
-	at org.apache.derby.jdbc.InternalDriver$1.run(Unknown Source)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at org.apache.derby.jdbc.InternalDriver.getNewEmbedConnection(Unknown Source)
-	at org.apache.derby.jdbc.InternalDriver.connect(Unknown Source)
-	at org.apache.derby.jdbc.InternalDriver.connect(Unknown Source)
-	at org.apache.derby.jdbc.EmbeddedDriver.connect(Unknown Source)
-	at org.apache.derby.impl.drda.Database.makeConnection(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.getConnFromDatabaseName(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.verifyUserIdPassword(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.parseSECCHK(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.parseDRDAConnection(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.processCommands(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.run(Unknown Source)
-Caused by: ERROR 08004: Connection authentication failure occurred.  Reason: Invalid authentication..
-	at org.apache.derby.iapi.error.StandardException.newException(Unknown Source)
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory.wrapArgsForTransportAcrossDRDA(Unknown Source)
-	... 21 more
-============= begin nested exception, level (1) ===========
-ERROR 08004: Connection authentication failure occurred.  Reason: Invalid authentication..
-	at org.apache.derby.iapi.error.StandardException.newException(Unknown Source)
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory.wrapArgsForTransportAcrossDRDA(Unknown Source)
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection.newSQLException(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection.checkUserCredentials(Unknown Source)
-	at org.apache.derby.impl.jdbc.EmbedConnection.<init>(Unknown Source)
-	at org.apache.derby.jdbc.InternalDriver$1.run(Unknown Source)
-	at org.apache.derby.jdbc.InternalDriver$1.run(Unknown Source)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at org.apache.derby.jdbc.InternalDriver.getNewEmbedConnection(Unknown Source)
-	at org.apache.derby.jdbc.InternalDriver.connect(Unknown Source)
-	at org.apache.derby.jdbc.InternalDriver.connect(Unknown Source)
-	at org.apache.derby.jdbc.EmbeddedDriver.connect(Unknown Source)
-	at org.apache.derby.impl.drda.Database.makeConnection(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.getConnFromDatabaseName(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.verifyUserIdPassword(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.parseSECCHK(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.parseDRDAConnection(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.processCommands(Unknown Source)
-	at org.apache.derby.impl.drda.DRDAConnThread.run(Unknown Source)
-============= end nested exception, level (1) ===========
-Cleanup action completed
-Tue Nov 22 21:22:58 CST 2022 Thread[DRDAConnThread_4,5,main] (DATABASE = Millionaire), (DRDAID = {7}), Connection authentication failure occurred.  Reason: Invalid authentication..
-----------------------------------------------------------------
-Tue Nov 22 21:24:17 CST 2022：正在关闭 Derby 引擎
-----------------------------------------------------------------
-Tue Nov 22 21:24:17 CST 2022:
-正在使用类加载程序 sun.misc.Launcher$AppClassLoader@1d44bcfa 关闭数据库目录 E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\derby\databases\Millionaire 上的实例 ab2c81d5-0184-9f35-ebb0-ffffeafc6c43
-----------------------------------------------------------------
-Tue Nov 22 21:24:17 CST 2022:
-正在使用类加载程序 sun.misc.Launcher$AppClassLoader@1d44bcfa 关闭数据库目录 E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\derby\databases\MillionaireDB 上的实例 0ddd00a9-0184-9f35-ebb0-ffffeafc6c43
-----------------------------------------------------------------

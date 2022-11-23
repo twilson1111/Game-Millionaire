@@ -1,30 +1,20 @@
 
 import Database.DBConnector;
-import Database.User;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import Database.QA;
+import java.util.List;
 
 public class Main {
-
     public static void main(String[] args) {
-
-
-        try {
-        Connection connection = DBConnector.connect();
-            Statement statement = connection.createStatement();
-
-            ResultSet rs  = statement.executeQuery("select * from " + User.getTableName());
-            
-            while (rs.next()) {
-                
-            }
-            
-        } catch (SQLException e) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, e);
+        List<QA> list = DBConnector.getQAList();
+        for (QA qa : DBConnector.getQAList()) {
+            System.out.println(qa.id);
+            System.out.println(qa.question);
+            System.out.println(qa.correct);
+            System.out.println(qa.wrong1);
+            System.out.println(qa.wrong2);
+            System.out.println(qa.wrong3);
+            System.out.println(qa.wrong4);
+            System.out.println(qa.wrong5);
         }
     }
 }

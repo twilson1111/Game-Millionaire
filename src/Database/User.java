@@ -2,13 +2,12 @@ package Database;
 
 public class User extends Table {
     
-    public Column<Integer> id = new Table.Column<>("ID");
-    public Column<String> username = new Table.Column<>("USERNAME");
-    public Column<String> password = new Table.Column<>("PASSWORD");
-    public Column<Double> money = new Table.Column<>("MONEY");
+    public Column<Integer> id = new Table.Column<>();
+    public Column<String> username = new Table.Column<>();
+    public Column<String> password = new Table.Column<>();
+    public Column<Double> money = new Table.Column<>();
     
     public User(int id, String username, String password, double money) {
-        super("USERS");
         this.id.value = id;
         this.username.value = username;
         this.password.value = password;
