@@ -1,12 +1,13 @@
 
-import Database.DBConnector;
+import Database.MillionireConnection;
 import Database.QA;
-import java.util.List;
+import Database.User;
 
 public class Main {
+
     public static void main(String[] args) {
-        List<QA> list = DBConnector.getQAList();
-        for (QA qa : DBConnector.getQAList()) {
+        MillionireConnection connection = new MillionireConnection();
+        for (QA qa : connection.getQAList()) {
             System.out.println(qa.id);
             System.out.println(qa.question);
             System.out.println(qa.correct);
@@ -16,5 +17,18 @@ public class Main {
             System.out.println(qa.wrong4);
             System.out.println(qa.wrong5);
         }
+
+        System.out.println(connection.register("Test", "1"));
+        System.out.println(connection.register("Test1", "1"));
+        
+        for (User user : connection.getUserList()) {
+            System.out.println(user.username);
+            System.out.println(user.password);
+        }
+        
+        System.out.println(connection.login("Test", "1"));
+        System.out.println(connection.login("Test", "123456"));
+        System.out.println(connection.login("Test1", "1"));
+        System.out.println(connection.login("Test1", "123456"));
     }
 }
