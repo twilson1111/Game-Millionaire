@@ -26,7 +26,7 @@ public class MillionireConnection {
         Statement val_statement = null;
         try {
             val_statement = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD).createStatement();
-            
+
         } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
         }
@@ -76,25 +76,28 @@ public class MillionireConnection {
     public boolean login(String username, String password) {
         try {
             ResultSet rs = statement.executeQuery("select password from APP." + TABLENAME_USER + " where username = \'" + username + "\'");
-            rs.next();
+            if (!rs.next()) return false;
+            
             return password.equals(rs.getString(1));
+
         } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
         }
+
         return false;
     }
 
     public boolean register(String username, String password) {
         try {
             boolean isNameDuplicated = statement.executeQuery("select * from APP." + TABLENAME_USER + " where username = \'" + username + "\'").next();
-            
+
             if (!isNameDuplicated) {
                 statement.executeUpdate("insert into APP." + TABLENAME_USER + " values (\'" + username + "\', \'" + password + "\', 0)");
                 return true;
             }
-            
+
         } catch (SQLException e) {
-            logger.log(Level.SEVERE,  e.getMessage());
+            logger.log(Level.SEVERE, e.getMessage());
         }
         return false;
     }
