@@ -1,6 +1,5 @@
 package Database;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,23 +20,16 @@ public class MillionireConnection {
     public static final String TABLENAME_USER = "ACCOUNTS";
     public static final String TABLENAME_QA = "QA";
 
-    private final Connection connection;
     private final Statement statement;
 
     public MillionireConnection() {
-        Connection val_connection = null;
         Statement val_statement = null;
         try {
-            // Connection
-            val_connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            logger.log(Level.FINEST, "DB connected");
+            val_statement = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD).createStatement();
             
-            val_statement = val_connection.createStatement();
-
         } catch (SQLException e) {
             logger.log(Level.SEVERE, e.getMessage());
         }
-        connection = val_connection;
         statement = val_statement;
     }
 
@@ -80,36 +72,29 @@ public class MillionireConnection {
         }
         return list;
     }
-    
+
     public boolean login(String username, String password) {
         try {
             ResultSet rs = statement.executeQuery("select password from APP." + TABLENAME_USER + " where username = \'" + username + "\'");
             rs.next();
             return password.equals(rs.getString(1));
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Login Failure");
+            logger.log(Level.SEVERE, e.getMessage());
         }
         return false;
     }
 
     public boolean register(String username, String password) {
-        if (!isNameDuplicated(username)) {
-            try {
+        try {
+            boolean isNameDuplicated = statement.executeQuery("select * from APP." + TABLENAME_USER + " where username = \'" + username + "\'").next();
+            
+            if (!isNameDuplicated) {
                 statement.executeUpdate("insert into APP." + TABLENAME_USER + " values (\'" + username + "\', \'" + password + "\', 0)");
                 return true;
-
-            } catch (SQLException e) {
-                logger.log(Level.SEVERE, "Update Failure");
             }
-        }
-        return false;
-    }
-
-    private boolean isNameDuplicated(String username) {
-        try {
-            return statement.executeQuery("select * from APP." + TABLENAME_USER + " where username = \'" + username + "\'").next();
+            
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Duplication Check Failure");
+            logger.log(Level.SEVERE,  e.getMessage());
         }
         return false;
     }
