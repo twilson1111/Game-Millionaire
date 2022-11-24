@@ -108,6 +108,7 @@ public class LoginFrame extends JFrame {
             try {
                 TimeUnit.SECONDS.sleep(1);
                 setVisible(false);
+                MainFrame.start();
 
             } catch (InterruptedException e) {
                 System.out.println("Interrupted");

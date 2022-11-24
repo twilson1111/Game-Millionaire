@@ -13,7 +13,7 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    public MainFrame() {
+    private MainFrame() {
         initComponents();
     }
 
@@ -139,4 +139,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel label_money;
     private javax.swing.JLabel label_name;
     // End of variables declaration//GEN-END:variables
+
+    public static void start() {
+        java.awt.EventQueue.invokeLater(() -> {
+            new MainFrame().setVisible(true);
+        });
+    }
 }

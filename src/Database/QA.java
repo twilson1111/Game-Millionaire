@@ -1,15 +1,11 @@
 package Database;
 
-public class QA extends Table {
+public class QA {
 
-    public Column<Integer> id = new Column<>();
-    public Column<String> question = new Column<>();
-    public Column<String> correct = new Column<>();
-    public Column<String> wrong1 = new Column<>();
-    public Column<String> wrong2 = new Column<>();
-    public Column<String> wrong3 = new Column<>();
-    public Column<String> wrong4 = new Column<>();
-    public Column<String> wrong5 = new Column<>();
+    public final Integer id;
+    public final String question;
+    public final String correct;
+    public final String[] wrongs = new String[5]; // leak
 
     public QA(int id,
             String question,
@@ -19,14 +15,14 @@ public class QA extends Table {
             String wrong3,
             String wrong4,
             String wrong5) {
-        this.id.value = id;
-        this.question.value = question;
-        this.correct.value = correct;
-        this.wrong1.value = wrong1;
-        this.wrong2.value = wrong2;
-        this.wrong3.value = wrong3;
-        this.wrong4.value = wrong4;
-        this.wrong5.value = wrong5;
+        this.id = id;
+        this.question = question;
+        this.correct = correct;
+        this.wrongs[0] = wrong1;
+        this.wrongs[1] = wrong2;
+        this.wrongs[2] = wrong3;
+        this.wrongs[3] = wrong4;
+        this.wrongs[4] = wrong5;
     }
 
     @Override
@@ -34,13 +30,12 @@ public class QA extends Table {
         StringBuilder str = new StringBuilder();
         str.append(question).append("\n");
         str.append(correct).append("\n");
-        str.append(wrong1).append("\n");
-        if (wrong2.value != null) str.append(wrong2).append("\n");
-        if (wrong3.value != null) str.append(wrong3).append("\n");
-        if (wrong4.value != null) str.append(wrong4).append("\n");
-        if (wrong5.value != null) str.append(wrong5).append("\n");
+        for (String wrong : wrongs) {
+            if (wrong == null) {
+                break;
+            }
+            str.append(wrong).append("\n");
+        }
         return str.toString();
     }
-    
-    
 }
