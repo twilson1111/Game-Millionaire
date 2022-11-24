@@ -9,22 +9,23 @@ import java.util.Set;
 
 public class QuestionLoader {
 
-    private final MillionireConnection connection = new MillionireConnection();
-    private final List<QA> questionList;
+    private final MillionireConnection connection;
 
-    {
-        questionList = connection.getQAList();
+    public QuestionLoader(MillionireConnection connection) {
+        this.connection = connection;
     }
 
-    public List<QA> getRandom(int number) {
-        List<QA> list = new ArrayList<>();
+    public List<Question> getRandom(int number) {
+        List<QA> questionList = connection.getQAList();
+        List<Question> list = new ArrayList<>();
+        
         Set<Integer> set = new HashSet<>();
         Random rand = new Random();
-        while(set.size() < number) {
+        while (set.size() < number) {
             set.add(rand.nextInt(questionList.size()));
         }
         for (int i : set) {
-            list.add(questionList.get(i));
+            list.add(new Question(questionList.get(i)));
         }
         return list;
     }

@@ -11,22 +11,49 @@ public class Question {
     public final int rightAnswerPos;
     public final List<String> answers;
 
+    private final Random random = new Random();
+
     public Question(QA qa) {
         text = qa.question;
         int pos = 1;
-        while(pos < 5 && qa.wrongs[pos] != null) pos++;
+        while (pos < 5 && qa.wrongs[pos] != null) {
+            pos++;
+        }
         size = pos + 1;
-        
-        
-        rightAnswerPos = new Random().nextInt(size);
-        answers = new ArrayList<>(size);
-        for (int i = 0; i < size; i++) {
-            if (i == rightAnswerPos) {
-                answers.set(i, qa.correct);
+
+        answers = new ArrayList<>();
+
+        ArrayList<Integer> liner = new ArrayList<>();
+        for (int i = 0; i < size;) {
+            int number = random.nextInt(size);
+            if (!liner.contains(number)) {
+                liner.add(number);
+                i++;
+            }
+        }
+
+        rightAnswerPos = liner.indexOf(0) + 1;
+
+        for (int number : liner) {
+            if (number == 0) {
+                answers.add(qa.correct);
             } else {
-                String temp = null;
+                answers.add(qa.wrongs[number - 1]);
             }
         }
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append(text).append("\n");
+        int pos = 0;
+        for (String ans : answers) {
+            builder.append(++pos).append(". ").append(ans).append("\n");
+        }
+
+        // builder.append("Correct: ").append(rightAnswerPos).append("\n");
+        return builder.toString();
+    }
 }
