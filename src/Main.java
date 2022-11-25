@@ -1,11 +1,11 @@
 
-import Database.MillionireConnection;
+import Database.MillionaireConnection;
 
 public class Main {
 
     public static void main(String[] args) {
         
-        MillionireConnection connection = new MillionireConnection();
+        MillionaireConnection connection = new MillionaireConnection();
 
         QuestionLoader loader = new QuestionLoader(connection);
         

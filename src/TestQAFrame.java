@@ -1,17 +1,7 @@
 
-import Database.MillionireConnection;
-import java.awt.Button;
-import java.util.List;
+import Database.MillionaireConnection;
 import javax.swing.JButton;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-/**
- *
- * @author Xu Duo
- */
 public class TestQAFrame extends javax.swing.JFrame {
 
     private final QuestionLoader loader;
@@ -23,7 +13,7 @@ public class TestQAFrame extends javax.swing.JFrame {
         area_question.setEditable(false);
         area_question.setLineWrap(true);
 
-        loader = new QuestionLoader(new MillionireConnection());
+        loader = new QuestionLoader(new MillionaireConnection());
 
         randomLoad();
         setQuestion(question);
@@ -272,10 +262,8 @@ public class TestQAFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TestQAFrame().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new TestQAFrame().setVisible(true);
         });
     }
 

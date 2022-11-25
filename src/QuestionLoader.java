@@ -1,5 +1,5 @@
 
-import Database.MillionireConnection;
+import Database.MillionaireConnection;
 import Database.QA;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -9,9 +9,9 @@ import java.util.Set;
 
 public class QuestionLoader {
 
-    private final MillionireConnection connection;
+    private final MillionaireConnection connection;
 
-    public QuestionLoader(MillionireConnection connection) {
+    public QuestionLoader(MillionaireConnection connection) {
         this.connection = connection;
     }
 

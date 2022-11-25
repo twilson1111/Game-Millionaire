@@ -1,6 +1,6 @@
 package Frames;
 
-import Database.MillionireConnection;
+import Database.MillionaireConnection;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -19,7 +19,7 @@ import javax.swing.border.EmptyBorder;
 public class LoginFrame extends JFrame {
 
     private final Toolkit toolkit = Toolkit.getDefaultToolkit();
-    private final MillionireConnection connection = new MillionireConnection();
+    private final MillionaireConnection connection = new MillionaireConnection();
 
     private final JPanel panel_main = new JPanel(new BorderLayout(0, 10));
 
