@@ -1,70 +1,154 @@
 package Frames;
 
-
 import Loader.Question;
 import Loader.QuestionLoader;
 import Database.MillionaireConnection;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import javax.swing.JButton;
 
 public class GameFrame extends javax.swing.JFrame {
 
     private final int QUESTION_SIZE = 10;
     private final List<Question> questions;
+    private final MainFrame callFrame;
+    private final Timer timer;
+    private final JButton[] answerButtons;
+
+    private final double[] rewords = new double[]{
+        0,
+        0.1,
+        0.3,
+        1.0,
+        2.5,
+        10.0,
+        50.0,
+        100.0,
+        200.0,
+        400.0,
+        1000.0
+    };
 
     private int stage = 0;
-    private boolean victory = false;
+    private boolean failure = false;
 
-    public GameFrame(MillionaireConnection connection, String type) {
+    public GameFrame(MillionaireConnection connection, String type, MainFrame callFrame) {
+        this.callFrame = callFrame;
+
         initComponents();
-        
+        java.awt.Point p = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
+        setLocation(p.x - getWidth() / 2, p.y - getHeight() / 2);
+
+        timer = new Timer();
+
+        answerButtons = new JButton[]{
+            button_answer1,
+            button_answer2,
+            button_answer3,
+            button_answer4,
+            button_answer5,
+            button_answer6
+        };
+
         questions = new QuestionLoader(connection).getRandom(type, QUESTION_SIZE + 1);
 
+        timer.start();
+
+        setLabels();
         setQuestion(questions.get(stage));
     }
 
     private void setQuestion(Question question) {
-        javax.swing.JButton[] buttons = new javax.swing.JButton[]{
-            button_answer1,
-            button_answer2,
-            button_answer3,
-            button_answer4,
-            button_answer5,
-            button_answer6
-        };
 
-        button_next.setEnabled(false);
-        button_quit.setEnabled(false);
+        timer.reset();
+        timer.resume();
 
-        area_question.setText(question.text);
-        for (JButton button : buttons) {
+        // unable answer buttons and step buttons
+        lockStepButtons();
+        for (JButton button : answerButtons) {
             button.setText("");
             button.setEnabled(false);
         }
+
+        // set texts and enable used answer buttons
+        area_question.setText(question.text);
         for (int i = 0; i < question.size; i++) {
-            buttons[i].setEnabled(true);
-            buttons[i].setText(question.answers.get(i));
+            answerButtons[i].setEnabled(true);
+            answerButtons[i].setText(question.answers.get(i));
         }
     }
 
-    private void answerAndCheck(int pos) {
-        javax.swing.JButton[] buttons = new javax.swing.JButton[]{
-            button_answer1,
-            button_answer2,
-            button_answer3,
-            button_answer4,
-            button_answer5,
-            button_answer6
-        };
-        for (JButton button : buttons) {
-            button.setEnabled(false);
-        }
+    private void setLabels() {
+        label_got.setText("Now: " + String.valueOf(rewords[stage]));
+        label_next.setText("Next: " + String.valueOf(rewords[stage + 1]));
+        label_stage.setText(String.valueOf(stage + 1));
+    }
 
+    private void answerAndCheck(int pos) {
+
+        timer.pause();
+
+        lockAnswerButtons();
+
+        // check answer
         if (pos == questions.get(stage).rightAnswerPos) {
+
+            // correct
+            stage++;
+            setLabels();
+            
+            area_question.setText(
+                    "Correct answer! You have already win " + rewords[stage]
+                    + "k money. Now you can choose continue "
+                    + "or leave for recent reward");
             button_next.setEnabled(true);
+            button_quit.setEnabled(true);
+
         } else {
+
+            // lose
+            failure = true;
+            lockBuffButtons();
+            
+            area_question.setText(
+                    "Wrong answer! The correct answer is "
+                    + answerButtons[questions.get(stage).rightAnswerPos - 1].getText()
+                    + ". It regretful you have to quit and earn no money");
             button_quit.setEnabled(true);
         }
+    }
+
+    private void timeOut() {
+        
+        // time out
+        failure = true;
+        lockAnswerButtons();
+        lockBuffButtons();
+        
+        area_question.setText(
+                "Time out! The correct answer is "
+                + answerButtons[questions.get(stage).rightAnswerPos - 1].getText()
+                + ". It regretful you have to quit and earn no money");
+        
+        button_quit.setEnabled(true);
+    }
+
+    private void lockAnswerButtons() {
+        for (JButton button : answerButtons) {
+            button.setEnabled(false);
+        }
+    }
+    
+    private void lockBuffButtons() {
+        button_addTime.setEnabled(false);
+        button_remove.setEnabled(false);
+        button_change.setEnabled(false);
+    }
+    
+    private void lockStepButtons() {
+        button_next.setEnabled(false);
+        button_quit.setEnabled(false);
     }
 
     /**
@@ -86,7 +170,7 @@ public class GameFrame extends javax.swing.JFrame {
         area_question = new javax.swing.JTextArea();
         button_next = new javax.swing.JButton();
         button_quit = new javax.swing.JButton();
-        label_reward = new javax.swing.JLabel();
+        label_next = new javax.swing.JLabel();
         label_got = new javax.swing.JLabel();
         label_stage = new javax.swing.JLabel();
         timerBar = new javax.swing.JProgressBar();
@@ -101,7 +185,7 @@ public class GameFrame extends javax.swing.JFrame {
         button_answer1.setText("a1");
         button_answer1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_answer1ActionPerformed(evt);
+                answer1Action(evt);
             }
         });
 
@@ -109,7 +193,7 @@ public class GameFrame extends javax.swing.JFrame {
         button_answer2.setText("a2");
         button_answer2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_answer2ActionPerformed(evt);
+                answer2Action(evt);
             }
         });
 
@@ -117,7 +201,7 @@ public class GameFrame extends javax.swing.JFrame {
         button_answer3.setText("a3");
         button_answer3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_answer3ActionPerformed(evt);
+                answer3Action(evt);
             }
         });
 
@@ -125,7 +209,7 @@ public class GameFrame extends javax.swing.JFrame {
         button_answer4.setText("a4");
         button_answer4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_answer4ActionPerformed(evt);
+                answer4Action(evt);
             }
         });
 
@@ -133,7 +217,7 @@ public class GameFrame extends javax.swing.JFrame {
         button_answer5.setText("a5");
         button_answer5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_answer5ActionPerformed(evt);
+                answer5Action(evt);
             }
         });
 
@@ -141,7 +225,7 @@ public class GameFrame extends javax.swing.JFrame {
         button_answer6.setText("a6");
         button_answer6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_answer6ActionPerformed(evt);
+                answer6Action(evt);
             }
         });
 
@@ -153,14 +237,14 @@ public class GameFrame extends javax.swing.JFrame {
         area_question.setWrapStyleWord(true);
         area_question.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         area_question.setFocusable(false);
-        area_question.setMargin(new java.awt.Insets(10, 10, 10, 10));
+        area_question.setMargin(new java.awt.Insets(10, 5, 10, 5));
         jScrollPane1.setViewportView(area_question);
 
         button_next.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         button_next.setText("Next");
         button_next.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_nextActionPerformed(evt);
+                nextAction(evt);
             }
         });
 
@@ -168,12 +252,12 @@ public class GameFrame extends javax.swing.JFrame {
         button_quit.setText("Quit");
         button_quit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_quitActionPerformed(evt);
+                quitAction(evt);
             }
         });
 
-        label_reward.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        label_reward.setText("Next");
+        label_next.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        label_next.setText("Next");
 
         label_got.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         label_got.setText("Got");
@@ -182,10 +266,10 @@ public class GameFrame extends javax.swing.JFrame {
         label_stage.setText("Stage");
 
         button_addTime.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        button_addTime.setText("Add 30s");
+        button_addTime.setText("Reset timer");
         button_addTime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_addTimeActionPerformed(evt);
+                resetTimeAction(evt);
             }
         });
 
@@ -193,7 +277,7 @@ public class GameFrame extends javax.swing.JFrame {
         button_remove.setText("Remove a wrong answer");
         button_remove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_removeActionPerformed(evt);
+                removeWrongAction(evt);
             }
         });
 
@@ -201,7 +285,7 @@ public class GameFrame extends javax.swing.JFrame {
         button_change.setText("Change a question");
         button_change.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_changeActionPerformed(evt);
+                changeAction(evt);
             }
         });
 
@@ -236,7 +320,7 @@ public class GameFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(label_got, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(label_reward, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(label_next, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(212, 212, 212)
                         .addComponent(label_stage, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
@@ -248,18 +332,18 @@ public class GameFrame extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_got)
-                    .addComponent(label_reward)
+                    .addComponent(label_next)
                     .addComponent(label_stage))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(timerBar, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(button_addTime, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                    .addComponent(button_addTime, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(button_remove, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(button_change, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(button_change, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(button_answer1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(button_answer2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -281,52 +365,81 @@ public class GameFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void button_answer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_answer1ActionPerformed
+    private void answer1Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_answer1Action
         answerAndCheck(1);
-    }//GEN-LAST:event_button_answer1ActionPerformed
+    }//GEN-LAST:event_answer1Action
 
-    private void button_answer2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_answer2ActionPerformed
+    private void answer2Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_answer2Action
         answerAndCheck(2);
-    }//GEN-LAST:event_button_answer2ActionPerformed
+    }//GEN-LAST:event_answer2Action
 
-    private void button_answer3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_answer3ActionPerformed
+    private void answer3Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_answer3Action
         answerAndCheck(3);
-    }//GEN-LAST:event_button_answer3ActionPerformed
+    }//GEN-LAST:event_answer3Action
 
-    private void button_answer4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_answer4ActionPerformed
+    private void answer4Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_answer4Action
         answerAndCheck(4);
-    }//GEN-LAST:event_button_answer4ActionPerformed
+    }//GEN-LAST:event_answer4Action
 
-    private void button_answer5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_answer5ActionPerformed
+    private void answer5Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_answer5Action
         answerAndCheck(5);
-    }//GEN-LAST:event_button_answer5ActionPerformed
+    }//GEN-LAST:event_answer5Action
 
-    private void button_answer6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_answer6ActionPerformed
+    private void answer6Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_answer6Action
         answerAndCheck(6);
-    }//GEN-LAST:event_button_answer6ActionPerformed
+    }//GEN-LAST:event_answer6Action
 
-    private void button_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_nextActionPerformed
-        if (stage == 10)
-        
-        setQuestion(questions.get(stage++));
-    }//GEN-LAST:event_button_nextActionPerformed
+    private void nextAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextAction
+        if (stage == QUESTION_SIZE - 1) {
+            this.setVisible(false);
+            callFrame.setVisible(true);
+            callFrame.refreshData();
+            timer.stop();
+        }
 
-    private void button_quitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_quitActionPerformed
+        setQuestion(questions.get(stage));
+    }//GEN-LAST:event_nextAction
 
-        setQuestion(questions.get(stage++));
-    }//GEN-LAST:event_button_quitActionPerformed
+    private void quitAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitAction
+        if (failure) {
+            this.setVisible(false);
+            callFrame.setVisible(true);
+            timer.stop();
+        } else {
+            this.setVisible(false);
+            callFrame.setVisible(true);
+            callFrame.refreshData();
+            timer.stop();
+        }
+    }//GEN-LAST:event_quitAction
 
-    private void button_addTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_addTimeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_button_addTimeActionPerformed
+    private void resetTimeAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetTimeAction
+        if (timer.running) {
+            button_addTime.setEnabled(false);
+            timer.reset();
+        }
+    }//GEN-LAST:event_resetTimeAction
 
-    private void button_removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_removeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_button_removeActionPerformed
+    private void removeWrongAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeWrongAction
+        if (timer.running) {
+            button_remove.setEnabled(false);
+            int right = questions.get(stage).rightAnswerPos - 1;
+            int randomWrong = right;
+            boolean dupliacted = true;
+            while (dupliacted) {
+                randomWrong = new Random().nextInt(questions.get(stage).size);
+                dupliacted = randomWrong == right;
+            }
+            answerButtons[randomWrong].setEnabled(false);
+        }
+    }//GEN-LAST:event_removeWrongAction
 
-    private void button_changeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_changeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_button_changeActionPerformed
+    private void changeAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeAction
+        if (timer.running) {
+            button_change.setEnabled(false);
+            setQuestion(questions.get(QUESTION_SIZE));
+        }
+    }//GEN-LAST:event_changeAction
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea area_question;
@@ -343,12 +456,71 @@ public class GameFrame extends javax.swing.JFrame {
     private javax.swing.JButton button_remove;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel label_got;
-    private javax.swing.JLabel label_reward;
+    private javax.swing.JLabel label_next;
     private javax.swing.JLabel label_stage;
     private javax.swing.JProgressBar timerBar;
     // End of variables declaration//GEN-END:variables
 
-    public static void main(String[] args) {
-        new GameFrame(new MillionaireConnection(), "Test").setVisible(true);
+    private class Timer {
+
+        final int MAX_TIME = 30000;
+
+        int milliseconds = MAX_TIME;
+        boolean started = false;
+        boolean running = false;
+        boolean stoped = false;
+
+        {
+            timerBar.setMaximum(MAX_TIME);
+        }
+
+        void start() {
+            if (started || stoped) {
+                return;
+            }
+            started = true;
+            running = true;
+            new Thread(() -> {
+                try {
+                    while (milliseconds > 0 && !stoped) {
+                        TimeUnit.MILLISECONDS.sleep(1);
+                        if (!running) {
+                            continue;
+                        }
+                        timerBar.setValue(milliseconds);
+                        milliseconds--;
+                    }
+                    timeOut();
+                    stoped = true;
+
+                } catch (InterruptedException e) {
+                }
+            }).start();
+        }
+
+        void pause() {
+            if (!started || stoped) {
+                return;
+            }
+            running = false;
+        }
+
+        void resume() {
+            if (!started || stoped) {
+                return;
+            }
+            running = true;
+        }
+
+        void stop() {
+            if (!started) {
+                return;
+            }
+            stoped = true;
+        }
+
+        void reset() {
+            milliseconds = MAX_TIME;
+        }
     }
 }

@@ -6,6 +6,10 @@ public class MainFrame extends javax.swing.JFrame {
 
     private final MillionaireConnection connection;
     private final String username;
+    
+    private final String questionType1 = "Test";
+    private final String questionType2 = "Test";
+    private final String questionType3 = "Test";
 
     /**
      * Creates new form MainFrame
@@ -18,13 +22,22 @@ public class MainFrame extends javax.swing.JFrame {
         this.username = username;
 
         initComponents();
-        
+        java.awt.Point p = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
+        setLocation(p.x - getWidth() / 2, p.y - getHeight() / 2);
+
         refreshData();
     }
-    
+
     public final void refreshData() {
         display_username.setText(username);
         display_money.setText(String.valueOf(connection.getMoneyByName(username)));
+    }
+
+    private void startGame(String type) {
+        setVisible(false);
+        java.awt.EventQueue.invokeLater(() -> {
+            new GameFrame(connection, type, this).setVisible(true);
+        });
     }
 
     /**
@@ -170,15 +183,15 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_quitAction
 
     private void startAction1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startAction1
-        // TODO add your handling code here:
+        startGame(questionType1);
     }//GEN-LAST:event_startAction1
 
     private void startAction2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startAction2
-        // TODO add your handling code here:
+        startGame(questionType2);
     }//GEN-LAST:event_startAction2
 
     private void startAction3(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startAction3
-        // TODO add your handling code here:
+        startGame(questionType3);
     }//GEN-LAST:event_startAction3
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

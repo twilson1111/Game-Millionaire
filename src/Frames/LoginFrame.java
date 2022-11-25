@@ -15,6 +15,8 @@ public class LoginFrame extends javax.swing.JFrame {
         this.connection = connection;
 
         initComponents();
+        java.awt.Point p = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
+        setLocation(p.x - getWidth() / 2, p.y - getHeight() / 2);
     }
 
     /**
