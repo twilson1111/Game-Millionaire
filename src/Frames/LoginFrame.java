@@ -121,4 +121,6 @@ public class LoginFrame extends JFrame {
             new LoginFrame().setVisible(true);
         });
     }
+    
+    // 500 2000 5000 10000 25000 75000 125000 250000 500000 10000000
 }
