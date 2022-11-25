@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Fri Nov 25 18:01:12 CST 2022:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0184-ae3b-e7f8-00001ccce490 
+Fri Nov 25 18:53:23 CST 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0184-ae6b-af67-00001ca475c0 
 on database directory E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\MillionaireDB with class loader sun.misc.Launcher$AppClassLoader@5c647e05 
 Loaded from file:/E:/Programming/_IDE/NetBeansDoc/PDC_Game_Millionaire/lib/derby.jar
 java.vendor=Oracle Corporation
