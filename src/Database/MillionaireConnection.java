@@ -1,6 +1,8 @@
 package Database;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,23 +22,45 @@ public class MillionaireConnection {
     public static final String TABLENAME_USER = "USERS";
     public static final String TABLENAME_QA = "QA";
 
+    private final Connection connection;
     private final Statement statement;
+    private final PreparedStatement getQuestionByType;
 
     public MillionaireConnection() {
-        Statement val_statement = null;
+
+        Connection val_connection = null;
         try {
-            val_statement = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD).createStatement();
+            val_connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, e.toString());
+            logger.log(Level.SEVERE, "Connection failure");
+
+        } finally {
+            connection = val_connection;
+
         }
-        statement = val_statement;
+
+        Statement val_statement = null;
+        PreparedStatement val_getQuestion = null;
+        try {
+            val_statement = connection.createStatement();
+            val_getQuestion = connection.prepareStatement("select * from APP." + TABLENAME_QA + " where type = ?");
+
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Statement creation failure");
+
+        } finally {
+            statement = val_statement;
+            getQuestionByType = val_getQuestion;
+
+        }
     }
 
-    public List<QA> getQAList() {
+    public List<QA> getQuestionsByType(String type) {
         List<QA> list = new ArrayList<>();
         try {
-            ResultSet resultSet = statement.executeQuery("select * from APP." + TABLENAME_QA);
+            getQuestionByType.setString(1, type);
+            ResultSet resultSet = getQuestionByType.executeQuery();
             while (resultSet.next()) {
                 list.add(new QA(
                         resultSet.getInt(1),
@@ -87,6 +111,22 @@ public class MillionaireConnection {
         }
 
         return false;
+    }
+
+    public double getMoneyByName(String username) {
+        try {
+            ResultSet rs = statement.executeQuery("select money from APP." + TABLENAME_USER + " where username = \'" + username + "\'");
+            if (!rs.next()) {
+                return 0;
+            }
+
+            return rs.getDouble(1);
+
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, e.getMessage());
+        }
+
+        return 0;
     }
 
     public boolean register(String username, String password) {

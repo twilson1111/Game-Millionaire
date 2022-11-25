@@ -17,8 +17,8 @@ public class QuestionLoader {
         this.connection = connection;
     }
 
-    public List<Question> getRandom(int number) {
-        List<QA> questionList = connection.getQAList();
+    public List<Question> getRandom(String type, int number) {
+        List<QA> questionList = connection.getQuestionsByType(type);
         List<Question> list = new ArrayList<>();
         
         Set<Integer> set = new HashSet<>();

@@ -1,12 +1,30 @@
 package Frames;
 
+import Database.MillionaireConnection;
+
 public class MainFrame extends javax.swing.JFrame {
+
+    private final MillionaireConnection connection;
+    private final String username;
 
     /**
      * Creates new form MainFrame
+     *
+     * @param connection Connection of DB
+     * @param username Username of user
      */
-    private MainFrame() {
+    public MainFrame(MillionaireConnection connection, String username) {
+        this.connection = connection;
+        this.username = username;
+
         initComponents();
+        
+        refreshData();
+    }
+    
+    public final void refreshData() {
+        display_username.setText(username);
+        display_money.setText(String.valueOf(connection.getMoneyByName(username)));
     }
 
     /**
@@ -18,67 +36,122 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        button_start = new javax.swing.JButton();
+        button_start2 = new javax.swing.JButton();
         button_quit = new javax.swing.JButton();
         display_money = new javax.swing.JLabel();
         display_username = new javax.swing.JLabel();
         label_name = new javax.swing.JLabel();
         label_money = new javax.swing.JLabel();
+        button_history = new javax.swing.JButton();
+        button_start1 = new javax.swing.JButton();
+        button_start3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Who want to be a MILLIONAIRE");
+        setResizable(false);
 
-        button_start.setText("Start a new game");
+        button_start2.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        button_start2.setText("Start a new game");
+        button_start2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startAction2(evt);
+            }
+        });
 
+        button_quit.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         button_quit.setText("Quit");
+        button_quit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quitAction(evt);
+            }
+        });
 
+        display_money.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         display_money.setText("Money");
 
+        display_username.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         display_username.setText("Username");
 
+        label_name.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         label_name.setText("Name: ");
 
+        label_money.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         label_money.setText("Money: ");
+
+        button_history.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        button_history.setText("History");
+        button_history.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                historyAction(evt);
+            }
+        });
+
+        button_start1.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        button_start1.setText("Start a new game");
+        button_start1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startAction1(evt);
+            }
+        });
+
+        button_start3.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        button_start3.setText("Start a new game");
+        button_start3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startAction3(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(button_start, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(button_quit, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(button_start1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(button_start2, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                    .addComponent(button_start3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(label_money, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(label_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(label_name, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(display_username, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(display_money, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(385, Short.MAX_VALUE))
+                            .addComponent(display_money, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(button_history, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                    .addComponent(button_quit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_name, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(display_username, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(label_money, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(display_money, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(label_name, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(display_username, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(label_money, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(display_money, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(button_start1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(button_start, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(button_start2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(button_history, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(button_quit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(button_start3, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                    .addComponent(button_quit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        button_start.getAccessibleContext().setAccessibleName("button_start");
+        button_start2.getAccessibleContext().setAccessibleName("button_start");
         button_quit.getAccessibleContext().setAccessibleName("button_quit");
         display_money.getAccessibleContext().setAccessibleName("label_money");
         display_username.getAccessibleContext().setAccessibleName("label_username");
@@ -88,47 +161,35 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        
-        //</editor-fold>
+    private void historyAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historyAction
+        // TODO add your handling code here:
+    }//GEN-LAST:event_historyAction
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new MainFrame().setVisible(true);
-        });
-    }
+    private void quitAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitAction
+        System.exit(0);
+    }//GEN-LAST:event_quitAction
+
+    private void startAction1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startAction1
+        // TODO add your handling code here:
+    }//GEN-LAST:event_startAction1
+
+    private void startAction2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startAction2
+        // TODO add your handling code here:
+    }//GEN-LAST:event_startAction2
+
+    private void startAction3(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startAction3
+        // TODO add your handling code here:
+    }//GEN-LAST:event_startAction3
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton button_history;
     private javax.swing.JButton button_quit;
-    private javax.swing.JButton button_start;
+    private javax.swing.JButton button_start1;
+    private javax.swing.JButton button_start2;
+    private javax.swing.JButton button_start3;
     private javax.swing.JLabel display_money;
     private javax.swing.JLabel display_username;
     private javax.swing.JLabel label_money;
     private javax.swing.JLabel label_name;
     // End of variables declaration//GEN-END:variables
-
-    public static void start() {
-        java.awt.EventQueue.invokeLater(() -> {
-            new MainFrame().setVisible(true);
-        });
-    }
 }
