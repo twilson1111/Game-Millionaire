@@ -1,15 +1,21 @@
 package Frames;
 
+import Database.GameRecord;
 import Loader.Question;
 import Loader.QuestionLoader;
 import Database.MillionaireConnection;
+import java.sql.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JButton;
 
+/**
+ * The layout of this frmae is mostly gemerated by NetBeans
+ */
 public class GameFrame extends javax.swing.JFrame {
 
+    private final MillionaireConnection connection;
     private final int QUESTION_SIZE = 10;
     private final List<Question> questions;
     private final MainFrame callFrame;
@@ -21,7 +27,7 @@ public class GameFrame extends javax.swing.JFrame {
         0.1,
         0.3,
         1.0,
-        2.5,
+        5.0,
         10.0,
         50.0,
         100.0,
@@ -34,6 +40,7 @@ public class GameFrame extends javax.swing.JFrame {
     private boolean failure = false;
 
     public GameFrame(MillionaireConnection connection, String type, MainFrame callFrame) {
+        this.connection = connection;
         this.callFrame = callFrame;
 
         initComponents();
@@ -55,6 +62,7 @@ public class GameFrame extends javax.swing.JFrame {
 
         timer.start();
 
+        setTitle(type + " Questions");
         setLabels();
         setQuestion(questions.get(stage));
     }
@@ -97,7 +105,7 @@ public class GameFrame extends javax.swing.JFrame {
             // correct
             stage++;
             setLabels();
-            
+
             area_question.setText(
                     "Correct answer! You have already win " + rewords[stage]
                     + "k money. Now you can choose continue "
@@ -110,27 +118,27 @@ public class GameFrame extends javax.swing.JFrame {
             // lose
             failure = true;
             lockBuffButtons();
-            
+
             area_question.setText(
                     "Wrong answer! The correct answer is "
                     + answerButtons[questions.get(stage).rightAnswerPos - 1].getText()
-                    + ". It regretful you have to quit and earn no money");
+                    + ". It is regretful you have to quit and earn no money");
             button_quit.setEnabled(true);
         }
     }
 
     private void timeOut() {
-        
+
         // time out
         failure = true;
         lockAnswerButtons();
         lockBuffButtons();
-        
+
         area_question.setText(
                 "Time out! The correct answer is "
                 + answerButtons[questions.get(stage).rightAnswerPos - 1].getText()
-                + ". It regretful you have to quit and earn no money");
-        
+                + ". It is regretful you have to quit and earn no money");
+
         button_quit.setEnabled(true);
     }
 
@@ -139,13 +147,13 @@ public class GameFrame extends javax.swing.JFrame {
             button.setEnabled(false);
         }
     }
-    
+
     private void lockBuffButtons() {
         button_addTime.setEnabled(false);
         button_remove.setEnabled(false);
         button_change.setEnabled(false);
     }
-    
+
     private void lockStepButtons() {
         button_next.setEnabled(false);
         button_quit.setEnabled(false);
@@ -390,11 +398,15 @@ public class GameFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_answer6Action
 
     private void nextAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextAction
-        if (stage == QUESTION_SIZE - 1) {
+        if (stage == QUESTION_SIZE) {
             this.setVisible(false);
-            callFrame.setVisible(true);
-            callFrame.refreshData();
             timer.stop();
+
+            connection.addRecord(new GameRecord(callFrame.getUsername(), failure, stage, rewords[stage], new Date(System.currentTimeMillis())));
+            
+            callFrame.refreshData();
+            callFrame.setVisible(true);
+            dispose();
         }
 
         setQuestion(questions.get(stage));
@@ -403,13 +415,23 @@ public class GameFrame extends javax.swing.JFrame {
     private void quitAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitAction
         if (failure) {
             this.setVisible(false);
-            callFrame.setVisible(true);
             timer.stop();
+            
+            connection.addRecord(new GameRecord(callFrame.getUsername(), failure, stage, rewords[stage], new Date(System.currentTimeMillis())));
+            
+            callFrame.setVisible(true);
+            dispose();
+            
         } else {
             this.setVisible(false);
-            callFrame.setVisible(true);
-            callFrame.refreshData();
             timer.stop();
+            
+            connection.addRecord(new GameRecord(callFrame.getUsername(), failure, stage, rewords[stage], new Date(System.currentTimeMillis())));
+            
+            callFrame.refreshData();
+            callFrame.setVisible(true);
+            dispose();
+            
         }
     }//GEN-LAST:event_quitAction
 

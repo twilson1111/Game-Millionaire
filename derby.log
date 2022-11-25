@@ -1,13 +1,20 @@
+Sat Nov 26 05:13:15 CST 2022 : Apache Derby 网络服务器 - 10.14.2.0 - (1828579) 已启动并准备接受端口 1527 上的连接
 ----------------------------------------------------------------
-Sat Nov 26 02:46:28 CST 2022:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0184-b01c-ce18-00001cc94b78 
-on database directory E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\MillionaireDB with class loader sun.misc.Launcher$AppClassLoader@5c647e05 
-Loaded from file:/E:/Programming/_IDE/NetBeansDoc/PDC_Game_Millionaire/lib/derby.jar
+Sat Nov 26 05:13:16 CST 2022:
+正在使用类加载程序 sun.misc.Launcher$AppClassLoader@1d44bcfa 引导数据库
+目录 E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\MillionaireDB 中的 Derby 版本 The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579) 实例 a816c00e-0184-b0a3-30df-ffffc2b0827b
+已从 file:/E:/Programming/_IDE/NetBeansDoc/db-derby-10.14.2.0-bin/lib/derby.jar 加载
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_301-b09
-user.dir=E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire
+user.dir=E:\Programming\_IDE\NetBeansDoc\db-derby-10.14.2.0-bin
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0
-derby.system.home=null
-Database Class Loader started - derby.database.classpath=''
+derby.system.home=E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire
+数据库类加载程序已启动 - derby.database.classpath=''
+----------------------------------------------------------------
+Sat Nov 26 05:15:26 CST 2022：正在关闭 Derby 引擎
+----------------------------------------------------------------
+Sat Nov 26 05:15:26 CST 2022:
+正在使用类加载程序 sun.misc.Launcher$AppClassLoader@1d44bcfa 关闭数据库目录 E:\Programming\_IDE\NetBeansDoc\PDC_Game_Millionaire\MillionaireDB 上的实例 a816c00e-0184-b0a3-30df-ffffc2b0827b
+----------------------------------------------------------------

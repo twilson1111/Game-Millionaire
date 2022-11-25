@@ -2,6 +2,9 @@ package Frames;
 
 import Database.MillionaireConnection;
 
+/**
+ * The layout of this frmae is mostly gemerated by NetBeans
+ */
 public class LoginFrame extends javax.swing.JFrame {
 
     private final MillionaireConnection connection;

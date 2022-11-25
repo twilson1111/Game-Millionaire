@@ -1,11 +1,14 @@
 package Database;
 
+/**
+ * Row storage class of table QA
+ */
 public class QA {
 
     public final Integer id;
     public final String question;
     public final String correct;
-    public final String[] wrongs = new String[5]; // leak
+    public final String[] wrongs = new String[5];
 
     public QA(int id,
             String question,
@@ -23,19 +26,5 @@ public class QA {
         this.wrongs[2] = wrong3;
         this.wrongs[3] = wrong4;
         this.wrongs[4] = wrong5;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder str = new StringBuilder();
-        str.append(question).append("\n");
-        str.append(correct).append("\n");
-        for (String wrong : wrongs) {
-            if (wrong == null) {
-                break;
-            }
-            str.append(wrong).append("\n");
-        }
-        return str.toString();
     }
 }

@@ -2,14 +2,19 @@ package Frames;
 
 import Database.MillionaireConnection;
 
+/**
+ * The layout of this frmae is mostly gemerated by NetBeans
+ */
 public class MainFrame extends javax.swing.JFrame {
 
     private final MillionaireConnection connection;
     private final String username;
-    
+
     private final String questionType1 = "Test";
     private final String questionType2 = "Test";
     private final String questionType3 = "Test";
+
+    private final HistoryFrame historyFrame;
 
     /**
      * Creates new form MainFrame
@@ -20,6 +25,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame(MillionaireConnection connection, String username) {
         this.connection = connection;
         this.username = username;
+        historyFrame = new HistoryFrame(connection, username);
 
         initComponents();
         java.awt.Point p = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
@@ -33,8 +39,13 @@ public class MainFrame extends javax.swing.JFrame {
         display_money.setText(String.valueOf(connection.getMoneyByName(username)));
     }
 
+    public String getUsername() {
+        return username;
+    }
+
     private void startGame(String type) {
         setVisible(false);
+        historyFrame.setVisible(false);
         java.awt.EventQueue.invokeLater(() -> {
             new GameFrame(connection, type, this).setVisible(true);
         });
@@ -175,7 +186,7 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void historyAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historyAction
-        // TODO add your handling code here:
+        historyFrame.setVisialeAndRefresh();
     }//GEN-LAST:event_historyAction
 
     private void quitAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitAction
