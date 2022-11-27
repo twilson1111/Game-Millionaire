@@ -90,7 +90,7 @@ public class GameFrame extends javax.swing.JFrame {
     private void setLabels() {
         label_got.setText("Now: " + String.valueOf(rewords[stage]));
         label_next.setText("Next: " + String.valueOf(rewords[stage + 1]));
-        label_stage.setText(String.valueOf(stage + 1));
+        label_stage.setText("Stage: " + String.valueOf(stage + 1));
     }
 
     private void answerAndCheck(int pos) {

@@ -10,9 +10,9 @@ public class MainFrame extends javax.swing.JFrame {
     private final MillionaireConnection connection;
     private final String username;
 
-    private final String questionType1 = "Test";
-    private final String questionType2 = "Test";
-    private final String questionType3 = "Test";
+    private final String questionType1 = "Normal";
+    private final String questionType2 = "Hard";
+    private final String questionType3 = "Extreme";
 
     private final HistoryFrame historyFrame;
 
@@ -31,12 +31,16 @@ public class MainFrame extends javax.swing.JFrame {
         java.awt.Point p = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
         setLocation(p.x - getWidth() / 2, p.y - getHeight() / 2);
 
+        button_start1.setText(questionType1);
+        button_start2.setText(questionType2);
+        button_start3.setText(questionType3);
+        
         refreshData();
     }
 
     public final void refreshData() {
         display_username.setText(username);
-        display_money.setText(String.valueOf(connection.getMoneyByName(username)));
+        display_money.setText(String.valueOf(connection.getMoneyByName(username) + "k"));
     }
 
     public String getUsername() {
