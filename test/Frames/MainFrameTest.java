@@ -3,17 +3,17 @@ package Frames;
 import Database.MillionaireConnection;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 
 /**
- *
  * @author Xu Duo
  */
 public class MainFrameTest {
-    
+
     private MainFrame mainFrame;
-    private String username;
-    
+    private final String username = "test";
+
     @Before
     public void setUp() {
         mainFrame = new MainFrame(new MillionaireConnection(), username);
@@ -36,5 +36,5 @@ public class MainFrameTest {
         System.out.println("getUsername");
         assertEquals(username, mainFrame.getUsername());
     }
-    
+
 }

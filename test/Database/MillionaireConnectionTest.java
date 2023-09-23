@@ -39,8 +39,8 @@ public class MillionaireConnectionTest {
         System.out.println("login");
         String username = "Test";
         String password = "123456";
-        assertEquals(true, connection.login(username, password));
-        System.out.println("login successcully");
+        assertTrue(connection.login(username, password));
+        System.out.println("login successfully");
     }
 
     /**
@@ -51,7 +51,7 @@ public class MillionaireConnectionTest {
         System.out.println("register");
         String username = "Test";
         String password = "";
-        assertEquals(false, connection.register(username, password));
+        assertFalse(connection.register(username, password));
         System.out.println("register failed: exist username " + username);
     }
 

@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  */
 public class MillionaireConnection {
 
-    // static strings of DB connecitons
+    // static strings of DB connections
     private static final String DB_URL = "jdbc:derby:MillionaireDB";
     private static final String USERNAME = "pdc";
     private static final String PASSWORD = "pdc";
