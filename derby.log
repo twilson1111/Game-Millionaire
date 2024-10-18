@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Sat Sep 23 13:32:34 CST 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-018a-c086-8053-00001f207ee8 
-on database directory E:\Programming\_IDE\IDEA files\PDC_Game_Millionaire\MillionaireDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@78308db1 
-Loaded from file:/E:/Programming/_IDE/IDEA%20files/PDC_Game_Millionaire/lib/derby.jar
-java.vendor=Oracle Corporation
-java.runtime.version=18.0.2.1+1-1
-user.dir=E:\Programming\_IDE\IDEA files\PDC_Game_Millionaire
-os.name=Windows 11
-os.arch=amd64
-os.version=10.0
+Thu Oct 17 15:22:55 MDT 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0192-9c5c-ba3e-00000f38a908 
+on database directory /Users/jennywilson/Documents/GitHub/ENSF607/Assignments/Assignment 2/Game-Millionaire/MillionaireDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@67424e82 
+Loaded from file:/Users/jennywilson/Documents/GitHub/ENSF607/Assignments/Assignment%202/Game-Millionaire/lib/derby.jar
+java.vendor=Eclipse Adoptium
+java.runtime.version=17.0.11+9
+user.dir=/Users/jennywilson/Documents/GitHub/ENSF607/Assignments/Assignment 2/Game-Millionaire
+os.name=Mac OS X
+os.arch=x86_64
+os.version=13.6.7
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

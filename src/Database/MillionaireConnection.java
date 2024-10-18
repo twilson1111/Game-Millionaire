@@ -7,14 +7,40 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import Loader.Question;
+
+
 
 /**
  * Database manupulating class containing all the DB operations.
  */
 public class MillionaireConnection {
+	
+	// registration constraints
+    private static final int PASSWORD_MIN_LENGTH = 8;
+    private static final int USERNAME_MIN_LENGTH = 6;
+    class UsernameException extends Exception {
+    	public UsernameException() {
+    		super("Username failure - must be at least " + USERNAME_MIN_LENGTH + " characters");
+    	}
+    }
+    class PasswordException extends Exception {
+    	public PasswordException() {
+    		super("Password failure - must be at least " + PASSWORD_MIN_LENGTH + " characters");
+    	}
+    }
+    class ExistingUsernameException extends Exception {
+    	public ExistingUsernameException() {
+    		super("Sorry, that username already exists.");
+    	}
+    }
 
     // static strings of DB connections
     private static final String DB_URL = "jdbc:derby:MillionaireDB";
@@ -128,25 +154,47 @@ public class MillionaireConnection {
     }
 
     /**
-     * Use SQL statement to check if this username is registered and update DB
+     * Use SQL statement to check if this username is registered, if the username and password have the required number of characters,  and update DB
      *
      * @param username username for register
      * @param password password for register
      * @return if the this login succeed
+     * @throws exceptions
      */
-    public boolean register(String username, String password) {
+//  public boolean register(String username, String password) {
+//  try {
+//      boolean isNameDuplicated = statement.executeQuery("select * from APP." + TABLENAME_USER + " where username = \'" + username + "\'").next();
+//
+//      if (!isNameDuplicated) {
+//          statement.executeUpdate("insert into APP." + TABLENAME_USER + " values (\'" + username + "\', \'" + password + "\', 0)");
+//          return true;
+//      }
+//
+//  } catch (SQLException e) {
+//      logger.log(Level.SEVERE, "Register failure");
+//  }
+//  return false;
+//}
+    public void register(String username, String password) throws Exception {
         try {
+        	if (username.length() < USERNAME_MIN_LENGTH) {
+        		throw new UsernameException();
+        	}
+        	if (password.length() < PASSWORD_MIN_LENGTH) {
+        		throw new PasswordException();
+        	}
+        	
             boolean isNameDuplicated = statement.executeQuery("select * from APP." + TABLENAME_USER + " where username = \'" + username + "\'").next();
-
-            if (!isNameDuplicated) {
+            
+            if (isNameDuplicated) {
+            	throw new ExistingUsernameException();
+            } else {
                 statement.executeUpdate("insert into APP." + TABLENAME_USER + " values (\'" + username + "\', \'" + password + "\', 0)");
-                return true;
             }
-
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Register failure");
+        } catch (Exception e) {
+        	logger.log(Level.SEVERE, e.getLocalizedMessage());
+        	throw e;
         }
-        return false;
     }
 
     /**
@@ -214,6 +262,21 @@ public class MillionaireConnection {
             logger.log(Level.SEVERE, "Getting questions failure");
         }
 
+        return list;
+    }
+    
+    public List<Question> getRandom(String type, int number) {
+        List<QA> questionList = getQuestionsByType(type);
+        List<Question> list = new ArrayList<>();
+        
+        Set<Integer> set = new HashSet<>();
+        Random rand = new Random();
+        while (set.size() < number) {
+            set.add(rand.nextInt(questionList.size()));
+        }
+        for (int i : set) {
+            list.add(new Question(questionList.get(i)));
+        }
         return list;
     }
 }

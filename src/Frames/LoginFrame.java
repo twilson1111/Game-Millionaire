@@ -142,19 +142,35 @@ public class LoginFrame extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_loginAction
+    
+//    private void registerAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerAction
+//        String username = field_username.getText();
+//        char[] pass = field_password.getPassword();
+//        String password = new String(pass, 0, pass.length);
+//
+//        if (!username.equals("") && connection.register(username, password)) {
+//            area_msg.setText("Register successfully! Welcome, " + username);
+//            closeAndStartGame(username);
+//
+//        } else {
+//            area_msg.setText(
+//                    "Username exsits!\n"
+//                    + "Please change your username then try again.\n");
+//        }
+//    }//GEN-LAST:event_registerAction
 
     private void registerAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerAction
+    	
         String username = field_username.getText();
         char[] pass = field_password.getPassword();
         String password = new String(pass, 0, pass.length);
-
-        if (!username.equals("") && connection.register(username, password)) {
-            area_msg.setText("Register successfully! Welcome, " + username);
-            closeAndStartGame(username);
-
-        } else {
-            area_msg.setText(
-                    "Username exsits!\n"
+        
+        try {
+        	connection.register(username, password);
+        	area_msg.setText("Register successfully! Welcome, " + username);
+        } catch (Exception e) {
+        	area_msg.setText(
+                    e.getLocalizedMessage() + "\n"
                     + "Please change your username then try again.\n");
         }
     }//GEN-LAST:event_registerAction

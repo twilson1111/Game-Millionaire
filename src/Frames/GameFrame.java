@@ -58,7 +58,8 @@ public class GameFrame extends javax.swing.JFrame {
             button_answer6
         };
 
-        questions = new QuestionLoader(connection).getRandom(type, QUESTION_SIZE + 1);
+        //questions = new QuestionLoader(connection).getRandom(type, QUESTION_SIZE + 1); // old code
+        questions = connection.getRandom(type, QUESTION_SIZE + 1); // new code
 
         timer.start();
 
