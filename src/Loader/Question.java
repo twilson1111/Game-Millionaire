@@ -7,17 +7,33 @@ import java.util.Random;
 
 public class Question {
 
-    public final String text;
-    public final int size;
-    public final int rightAnswerPos;
-    public final List<String> answers;
+    private final String text;
+    private final int size;
+    private final int rightAnswerPos;
+    private final List<String> answers;
 
     private final Random random = new Random();
+    
+    public String getText() {
+    	return text;
+    }
+    
+    public int getSize() {
+    	return size;
+    }
+    
+    public int getRightAnswerPos() {
+    	return rightAnswerPos;
+    }
+    
+    public List<String> getAnswers() {
+    	return answers;
+    }
 
     public Question(QA qa) {
-        text = qa.question;
+        text = qa.getQuestion();
         int pos = 1;
-        while (pos < 5 && qa.wrongs[pos] != null) {
+        while (pos < 5 && qa.getWrongs()[pos] != null) {
             pos++;
         }
         size = pos + 1;
@@ -37,9 +53,9 @@ public class Question {
 
         for (int number : liner) {
             if (number == 0) {
-                answers.add(qa.correct);
+                answers.add(qa.getCorrect());
             } else {
-                answers.add(qa.wrongs[number - 1]);
+                answers.add(qa.getWrongs()[number - 1]);
             }
         }
     }
@@ -58,3 +74,15 @@ public class Question {
         return builder.toString();
     }
 }
+
+/*
+ * OLD CODE
+public class Question {
+
+    public final String text;
+    public final int size;
+    public final int rightAnswerPos;
+    public final List<String> answers;
+    ...
+    
+*/

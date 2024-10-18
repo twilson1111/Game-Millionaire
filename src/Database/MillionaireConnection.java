@@ -227,16 +227,16 @@ public class MillionaireConnection {
     public void addRecord(GameRecord record) {
         try {
             // update histories
-            addRecordStatement.setString(1, record.username);
-            addRecordStatement.setBoolean(2, record.failure);
-            addRecordStatement.setInt(3, record.stage);
-            addRecordStatement.setDouble(4, record.money);
-            addRecordStatement.setDate(5, record.date);
+            addRecordStatement.setString(1, record.getUsername());
+            addRecordStatement.setBoolean(2, record.getFailure());
+            addRecordStatement.setInt(3, record.getStage());
+            addRecordStatement.setDouble(4, record.getMoney());
+            addRecordStatement.setDate(5, record.getDate());
             addRecordStatement.executeUpdate();
 
             // update user infos
-            updateMoneyStatement.setDouble(1, record.money);
-            updateMoneyStatement.setString(2, record.username);
+            updateMoneyStatement.setDouble(1, record.getMoney());
+            updateMoneyStatement.setString(2, record.getUsername());
             updateMoneyStatement.executeUpdate();
 
         } catch (SQLException e) {

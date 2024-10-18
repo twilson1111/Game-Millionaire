@@ -81,10 +81,10 @@ public class GameFrame extends javax.swing.JFrame {
         }
 
         // set texts and enable used answer buttons
-        area_question.setText(question.text);
-        for (int i = 0; i < question.size; i++) {
+        area_question.setText(question.getText());
+        for (int i = 0; i < question.getSize(); i++) {
             answerButtons[i].setEnabled(true);
-            answerButtons[i].setText(question.answers.get(i));
+            answerButtons[i].setText(question.getAnswers().get(i));
         }
     }
 
@@ -101,7 +101,7 @@ public class GameFrame extends javax.swing.JFrame {
         lockAnswerButtons();
 
         // check answer
-        if (pos == questions.get(stage).rightAnswerPos) {
+        if (pos == questions.get(stage).getRightAnswerPos()) {
 
             // correct
             stage++;
@@ -122,7 +122,7 @@ public class GameFrame extends javax.swing.JFrame {
 
             area_question.setText(
                     "Wrong answer! The correct answer is "
-                    + answerButtons[questions.get(stage).rightAnswerPos - 1].getText()
+                    + answerButtons[questions.get(stage).getRightAnswerPos() - 1].getText()
                     + ". It is regretful you have to quit and earn no money");
             button_quit.setEnabled(true);
         }
@@ -137,7 +137,7 @@ public class GameFrame extends javax.swing.JFrame {
 
         area_question.setText(
                 "Time out! The correct answer is "
-                + answerButtons[questions.get(stage).rightAnswerPos - 1].getText()
+                + answerButtons[questions.get(stage).getRightAnswerPos() - 1].getText()
                 + ". It is regretful you have to quit and earn no money");
 
         button_quit.setEnabled(true);
@@ -446,11 +446,11 @@ public class GameFrame extends javax.swing.JFrame {
     private void removeWrongAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeWrongAction
         if (timer.running) {
             button_remove.setEnabled(false);
-            int right = questions.get(stage).rightAnswerPos - 1;
+            int right = questions.get(stage).getRightAnswerPos() - 1;
             int randomWrong = right;
             boolean dupliacted = true;
             while (dupliacted) {
-                randomWrong = new Random().nextInt(questions.get(stage).size);
+                randomWrong = new Random().nextInt(questions.get(stage).getSize());
                 dupliacted = randomWrong == right;
             }
             answerButtons[randomWrong].setEnabled(false);

@@ -27,10 +27,10 @@ public class HistoryFrame extends javax.swing.JFrame {
         List<GameRecord> list = this.connection.getRecords(username);
         Object[][] objects = new Object[list.size()][4];
         for (int i = 0; i < list.size(); i++) {
-            objects[i][0] = list.get(i).date;
-            objects[i][1] = list.get(i).failure;
-            objects[i][2] = list.get(i).stage;
-            objects[i][3] = list.get(i).money;
+            objects[i][0] = list.get(i).getDate();
+            objects[i][1] = list.get(i).getFailure();
+            objects[i][2] = list.get(i).getStage();
+            objects[i][3] = list.get(i).getMoney();
         }
 
         table_history.setModel(new javax.swing.table.DefaultTableModel(
